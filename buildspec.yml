@@ -11,6 +11,9 @@ phases:
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
       - echo Setting up kubeconfig for EKS cluster...
       - aws eks update-kubeconfig --name sibin --region ap-southeast-2  # Replace with your cluster name
+      - echo "Kubeconfig updated. Current context:"
+      - kubectl config current-context
+      - cat ~/.kube/config 
   build:
     commands:
       - echo Build started on `date`
