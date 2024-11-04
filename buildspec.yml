@@ -6,11 +6,14 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - REPOSITORY_URI=978863049220.dkr.ecr.ap-southeast-2.amazonaws.com/sibin
+      - echo "Logging in to ECR repository: $REPOSITORY_URI"
       - aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin $REPOSITORY_URI
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+      - echo "Using image tag: $IMAGE_TAG"
       - echo Setting up kubeconfig for EKS cluster...
       - aws eks update-kubeconfig --name sibin --region ap-southeast-2
+      - echo "Kubeconfig updated for EKS cluster: sibin"
   build:
     commands:
       - echo Build started on `date`
@@ -24,8 +27,11 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Deploying to Kubernetes...
+      - echo "Setting image for deployment/nginx to $REPOSITORY_URI:${IMAGE_TAG}"
       - kubectl set image deployment/nginx nginx=$REPOSITORY_URI:${IMAGE_TAG}
+      - echo "Deployment updated successfully."
 
 artifacts:
   files:
-    - '**/*'
+    - '**/*'  # This will include all files in the source directory
+
