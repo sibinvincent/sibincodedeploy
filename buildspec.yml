@@ -14,7 +14,7 @@ phases:
       - echo "Kubeconfig updated. Current context:"
       - kubectl config current-context
       - cat ~/.kube/config 
-      - kubectl get nodes
+      
   build:
     commands:
       - echo Build started on `date`
