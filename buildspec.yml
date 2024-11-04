@@ -12,8 +12,6 @@ phases:
       - echo Setting up kubeconfig for EKS cluster...
       - aws eks update-kubeconfig --name sibin --region ap-southeast-2  # Replace with your cluster name
       - echo "Kubeconfig updated. Current context:"
-      - aws eks update-kubeconfig --name sibin --role-arn arn:aws:iam::978863049220:role/codebuild-codebuild-service-role
-      - kubectl get nodes
       - kubectl config current-context
       - cat ~/.kube/config 
       - kubectl get nodes
