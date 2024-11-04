@@ -23,7 +23,9 @@ phases:
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-  deploy:
-    commands:
-      - echo Deploying to Kubernetes....
-      - kubectl set image deployment/nginx nginx=978863049220.dkr.ecr.ap-southeast-2.amazonaws.com/sibin:${IMAGE_TAG}
+      - echo Deploying to Kubernetes...
+      - kubectl set image deployment/nginx nginx=$REPOSITORY_URI:${IMAGE_TAG}
+
+artifacts:
+  files:
+    - '**/*'
