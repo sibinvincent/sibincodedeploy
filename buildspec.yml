@@ -25,5 +25,5 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
   deploy:
     commands:
-      - echo Deploying to Kubernetes...
+      - echo Deploying to Kubernetes....
       - kubectl set image deployment/nginx nginx=978863049220.dkr.ecr.ap-southeast-2.amazonaws.com/sibin:${IMAGE_TAG}
