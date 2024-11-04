@@ -26,4 +26,4 @@ phases:
   deploy:
     commands:
       - echo Deploying to Kubernetes...
-      - kubectl set image deployment/your-deployment-name your-container-name=$REPOSITORY_URI:$IMAGE_TAG
+      - kubectl set image deployment/nginx nginx=978863049220.dkr.ecr.ap-southeast-2.amazonaws.com/sibin:${IMAGE_TAG}
