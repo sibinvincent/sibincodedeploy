@@ -34,5 +34,6 @@ phases:
 artifacts:
   files:
     - '**/*'
+    - echo Your image upated sucessfully....
 
 
