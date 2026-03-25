@@ -3,12 +3,13 @@ name: Build, Push & Deploy to EKS
 on:
   push:
     branches:
-      - master  # Change to your branch name if different (e.g., master)
+      - master
 
 env:
   DOCKER_IMAGE: sibinvin/sibin-nginx
-  EKS_CLUSTER_NAME: sibin-eks   # 🔴 Replace with your EKS cluster name
-  AWS_REGION: ap-south-1                     # 🔴 Replace with your AWS region
+  EKS_CLUSTER_NAME: sibin-eks
+  AWS_REGION: ap-south-1
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # ✅ Fix Node.js 24 deprecation warning
 
 jobs:
   build-push-deploy:
@@ -43,7 +44,7 @@ jobs:
       #    Tags: short-SHA  +  latest
       # ──────────────────────────────────────────
       - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6   # ✅ Upgraded from v5 → v6 (Node.js 24 native)
         with:
           context: .
           push: true
@@ -78,8 +79,7 @@ jobs:
       - name: Deploy to EKS
         run: |
           kubectl set image deployment/sibin-nginx \
-            sibin-nginx=${{ env.DOCKER_IMAGE }}:${{ steps.vars.outputs.TAG }} \
-            --record
+            sibin-nginx=${{ env.DOCKER_IMAGE }}:${{ steps.vars.outputs.TAG }}
 
           kubectl rollout status deployment/sibin-nginx --timeout=120s
 
