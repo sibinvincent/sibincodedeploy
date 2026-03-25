@@ -3,7 +3,7 @@ name: Build, Push & Deploy to EKS
 on:
   push:
     branches:
-      - main  # Change to your branch name if different (e.g., master)
+      - master  # Change to your branch name if different (e.g., master)
 
 env:
   DOCKER_IMAGE: sibinvin/sibin-nginx
