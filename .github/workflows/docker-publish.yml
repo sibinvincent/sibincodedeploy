@@ -7,7 +7,7 @@ on:
 
 env:
   DOCKER_IMAGE: sibinvin/sibin-nginx
-  EKS_CLUSTER_NAME: your-eks-cluster-name   # 🔴 Replace with your EKS cluster name
+  EKS_CLUSTER_NAME: sibin-eks   # 🔴 Replace with your EKS cluster name
   AWS_REGION: ap-south-1                     # 🔴 Replace with your AWS region
 
 jobs:
