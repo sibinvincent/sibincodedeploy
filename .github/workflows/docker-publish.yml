@@ -7,7 +7,7 @@ on:
 
 env:
   DOCKER_IMAGE: sibinvin/sibin-nginx
-  EKS_CLUSTER_NAME: syna-eks
+  EKS_CLUSTER_NAME: neetha-eks
   AWS_REGION: ap-south-1
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # ✅ Fix Node.js 24 deprecation warning
 
