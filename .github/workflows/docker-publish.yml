@@ -5,9 +5,6 @@ push:
 branches:
 - master
 
-env:
-DOCKER_IMAGE: sibinvin/sibin-nginx
-
 jobs:
 build-push:
 runs-on: ubuntu-latest
@@ -32,7 +29,5 @@ steps:
     with:
       context: .
       push: true
-      tags: |
-        sibinvin/sibin-nginx:${{ steps.vars.outputs.TAG }}
-        sibinvin/sibin-nginx:latest
+      tags: sibinvin/sibin-nginx:${{ steps.vars.outputs.TAG }}
 ```
