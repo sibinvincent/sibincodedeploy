@@ -7,38 +7,32 @@ branches:
 
 env:
 DOCKER_IMAGE: sibinvin/sibin-nginx
-FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
 build-push:
-name: Build → Push
 runs-on: ubuntu-latest
 
 ```
 steps:
-  # 1. Checkout code
   - name: Checkout Code
     uses: actions/checkout@v4
 
-  # 2. Set image tag (short SHA)
   - name: Set Image Tag
     id: vars
     run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
 
-  # 3. Login to Docker Hub
   - name: Log in to Docker Hub
     uses: docker/login-action@v3
     with:
       username: ${{ secrets.DOCKER_USERNAME }}
       password: ${{ secrets.DOCKER_PASSWORD }}
 
-  # 4. Build and push image
   - name: Build and Push Docker Image
     uses: docker/build-push-action@v6
     with:
       context: .
       push: true
       tags: |
-        ${{ env.DOCKER_IMAGE }}:${{ steps.vars.outputs.TAG }}
-        ${{ env.DOCKER_IMAGE }}:latest
+        sibinvin/sibin-nginx:${{ steps.vars.outputs.TAG }}
+        sibinvin/sibin-nginx:latest
 ```
